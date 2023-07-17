@@ -21,6 +21,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         text-white
         hover:opacity-75
         transition
+        inline-flex items-center justify-center
+        gap-x-2
     `,
           className,
         )}

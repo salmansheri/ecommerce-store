@@ -7,9 +7,11 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier . --write"
+    "format:write": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
@@ -21,6 +23,7 @@
     "lucide-react": "^0.260.0",
     "next": "13.4.10",
     "postcss": "8.4.26",
+    "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^1.13.2",
@@ -29,6 +32,5 @@
   },
   "devDependencies": {
     "prettier": "3.0.0"
-  }, 
-  "packageManager": "^pnpm@8.6.7"
+  }
 }
