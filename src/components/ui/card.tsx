@@ -7,18 +7,34 @@ import IconButton from "./icon-button";
 import { Expand, ShoppingCart } from "lucide-react";
 import Currency from "../currency";
 import { useRouter } from "next/navigation";
+import usePreviewModal from "@/hooks/use-preview-modal";
+import useCart from "@/hooks/use-cart";
 
-interface ProductCardProps {
+interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   item: ProductInterface;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ item, ...props }) => {
+  const cart = useCart();
+  const previewModal = usePreviewModal();
   const router = useRouter();
   const handleClick = () => {
     router.push(`/products/${item?.id}`);
   };
+
+  const onPreview: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+
+    previewModal.onOpen(item);
+  };
+
+  const onAddToCart: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    cart.addItem(item);
+  };
   return (
     <div
+      {...props}
       onClick={handleClick}
       className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4 "
     >
@@ -26,15 +42,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
       <div className="aspect-square rounded-xl bg-gray-100 relative">
         <Image
           alt={item.name}
-          // @ts-ignore
           src={item?.images?.[0]?.url}
           fill
           className="aspect-square object-cover rounded-md"
         />
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
-            <IconButton icon={<Expand size={20} className="text-gray-600" />} />
             <IconButton
+              onClick={onPreview}
+              icon={<Expand size={20} className="text-gray-600" />}
+            />
+            <IconButton
+              onClick={onAddToCart}
               icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>

@@ -32,6 +32,7 @@ export interface ColorInterface {
   name: string;
   value: string;
 }
+[];
 
 export interface ImageInterface {
   id: string;
